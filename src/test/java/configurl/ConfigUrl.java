@@ -65,13 +65,20 @@ public class ConfigUrl {
 
     private static String getPropertyNameByIndex(int columnIndex) {
         switch (columnIndex) {
-            case 0: return "User";
-            case 1: return "Senha";
-            case 2: return "Nome";
-            case 3: return "Sobrenome";
-            case 4: return "Cep";
-            case 5: return "Url";
-            default: throw new IllegalArgumentException("Índice de coluna inválido: " + columnIndex);
+            case 0:
+                return "User";
+            case 1:
+                return "Senha";
+            case 2:
+                return "Nome";
+            case 3:
+                return "Sobrenome";
+            case 4:
+                return "Cep";
+            case 5:
+                return "Url";
+            default:
+                throw new IllegalArgumentException("Índice de coluna inválido: " + columnIndex);
         }
     }
 
@@ -96,26 +103,32 @@ public class ConfigUrl {
 
         return getProperty("Senha");
     }
-    public static @NotNull String getNome(){
+
+    public static @NotNull String getNome() {
 
         return getProperty("Nome");
     }
-    public static @NotNull String getSobrenome(){
+
+    public static @NotNull String getSobrenome() {
 
         return getProperty("Sobrenome");
     }
+
     public static @NotNull String getCep() {
 
         return getProperty("Cep");
     }
+
     public static @NotNull String getUserBloq() {
 
         return getProperty("UserBloq");
     }
+
     public static @NotNull String getUserProblem() {
 
         return getProperty("UserProblem");
     }
+
     public static @NotNull String getSenhaIncorreta() {
 
         return getProperty("senhaIncorreta");
