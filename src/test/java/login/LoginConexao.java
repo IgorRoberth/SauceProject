@@ -12,32 +12,36 @@ import org.junit.Test;
 import org.junit.After;
 
 public class LoginConexao extends Driver {
-
-        @Before
-        public void setup() {
-            Navegadores nevegadores = new Navegadores("Edge");
-            driver = nevegadores.configurarDriver();
-            driver.get(ConfigUrl.getUrl());
+    @Before
+    public void setup() {
+        Navegadores navegadores = new Navegadores("Edge");
+        driver = navegadores.configurarDriver();
+        driver.get(ConfigUrl.getUrl());
     }
-  //  @After
-  //  public void fechar(){
-  //          driver.quit();
+    @After
+    public void fechar(){
+        driver.quit();
+    }
+
+    final static String produto = "Sauce Labs Backpack";
+    final static String msgFinal = "Thank you for your order!";
         @Test
         public void sauceproject() {
-            Metodos.escrever(Elementos.login, ConfigUrl.getProperty("userSucess"));
-            Metodos.escrever(Elementos.senha, ConfigUrl.getProperty("senhaSucess"));
+
+            Metodos.escrever(Elementos.login, ConfigUrl.getUser());
+            Metodos.escrever(Elementos.senha, ConfigUrl.getSenha());
             Metodos.clicar(Elementos.button);
             Metodos.clicar(selecionarItem.validarItem);
             Metodos.clicar(selecionarItem.adcCarrinho);
             Metodos.clicar(selecionarItem.carrinho);
-   //         Metodos.validarItem(selecionarItem.validarItem, "");
-   //         Metodos.clicar(selecionarItem.check);
-     //       Metodos.escrever(DadosPessoais.nome, "");
-      //      Metodos.escrever(DadosPessoais.sobrenome, "");
-       //     Metodos.escrever(DadosPessoais.cep, "");
-        //    Metodos.clicar(DadosPessoais.Continue);
-         //   Metodos.clicar(DadosPessoais.finish);
-          //  Metodos.validarItem(DadosPessoais.msgFinal, "");
-           // System.out.println("\n=====Produto "+ "validar_produto" +" e mensagem " + "msg_final" + " validado com sucesso=====");
+            Metodos.validarItem(selecionarItem.validarItem, produto);
+            Metodos.clicar(selecionarItem.check);
+            Metodos.escrever(DadosPessoais.nome, ConfigUrl.getNome());
+            Metodos.escrever(DadosPessoais.sobrenome, ConfigUrl.getSobrenome());
+            Metodos.escrever(DadosPessoais.cep, ConfigUrl.getCep());
+            Metodos.clicar(DadosPessoais.Continue);
+            Metodos.clicar(DadosPessoais.finish);
+            Metodos.validarItem(DadosPessoais.msgFinal, msgFinal);
+            System.out.println("\n=====Produto "+ produto + "validar_produto" +" e mensagem " + msgFinal + " validado com sucesso=====");
         }
 }

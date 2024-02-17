@@ -8,5 +8,6 @@ public class DadosPessoais {
     public static By cep = By.cssSelector("#postal-code");
     public static By Continue = By.cssSelector("#continue");
     public static By finish = By.cssSelector("#finish");
-    public static By msgFinal = By.cssSelector("#checkout_complete_container > h2");
+    public static By msgFinal = By.xpath("//h2");
+
 }
