@@ -3,7 +3,6 @@ package configurl;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -41,6 +40,7 @@ public class ConfigUrl {
                     properties.put("UserBloq", userBloqValue);
                 }
             }
+            // Adicionando a leitura da propriedade 'UserProblem'
             Row userProblemRow = sheet.getRow(3); // Índice 3 para a terceira linha
             if (userProblemRow != null) {
                 Cell userProblemCell = userProblemRow.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK); // Índice 0 para a coluna A
@@ -49,9 +49,10 @@ public class ConfigUrl {
                     properties.put("UserProblem", userProblemValue);
                 }
             }
-            Row senhaIncorretaRow = sheet.getRow(2);
+            // Adicionando a leitura da propriedade 'SenhaIncorreta'
+            Row senhaIncorretaRow = sheet.getRow(2); // Índice 2 para a segunda linha
             if (senhaIncorretaRow != null) {
-                Cell senhaIncorretaCell = senhaIncorretaRow.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                Cell senhaIncorretaCell = senhaIncorretaRow.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK); // Índice 1 para a coluna B
                 String senhaIncorretaValue = senhaIncorretaCell.getStringCellValue();
                 if (senhaIncorretaValue != null && !senhaIncorretaValue.trim().isEmpty()) {
                     properties.put("senhaIncorreta", senhaIncorretaValue);
