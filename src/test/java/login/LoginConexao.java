@@ -1,13 +1,14 @@
 package login;
 
-import driver.Driver;
 import browser.Navegadores;
+import driver.Driver;
 import elementos.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.After;
 import org.junit.runners.MethodSorters;
+
 import static configurl.ConfigUrl.*;
 import static metodos.Metodos.*;
 
@@ -84,5 +85,12 @@ public class LoginConexao extends Driver {
         clicar(Elementos.button);
         validarItem(Elementos.msgSenhaIncorreta, msgsenhaIncorreta);
         System.out.println("======== Mensagem de erro validada com sucesso: " + msgsenhaIncorreta + "========");
+    }
+    @Test
+    public void t5_validacaodeperformace() {
+
+        escrever(Elementos.login, getPerformance_Glitch_User());
+        escrever(Elementos.senha, getSenha());
+        clicar(Elementos.button);
     }
 }
