@@ -11,6 +11,7 @@ import org.junit.runners.MethodSorters;
 
 import static configurl.ConfigUrl.*;
 import static metodos.Metodos.*;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginConexao extends Driver {
@@ -89,8 +90,15 @@ public class LoginConexao extends Driver {
     @Test
     public void t5_validacaodeperformace() {
 
+        long startTime = System.currentTimeMillis();
         escrever(Elementos.login, getPerformance_Glitch_User());
         escrever(Elementos.senha, getSenha());
         clicar(Elementos.button);
+
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        double durationInSeconds = duration / 1000.0;
+        System.out.println("O login demorou: " + durationInSeconds + " segundos.");
+        assertTrue("O login demorou mais do que o esperado", durationInSeconds < 6);
     }
 }
