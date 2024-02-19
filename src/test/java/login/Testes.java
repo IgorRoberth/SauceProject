@@ -49,7 +49,7 @@ public class Testes extends Driver {
         System.out.println("\n===== Produto " + produto + " e mensagem " + msgFinal + " validadas com sucesso =====");
     }
 
-    private final static String msgErro = "Epic sadface: Sorry, this user has been locked out.";
+    private final static String msgErro = "Epic sadface: Sorry, this user has been locked out. ";
 
     @Test
     public void t2_UsuarioComBloqueio() {
@@ -74,7 +74,7 @@ public class Testes extends Driver {
         System.out.println("======== Produto esperado validado com sucesso: " + userProblem + "=======");
     }
 
-    private final static String msgsenhaIncorreta = "Epic sadface: Username and password do not match any user in this service";
+    private final static String msgsenhaIncorreta = "Epic sadface: Username and password do not match any user in this service ";
 
     @Test
     public void t4_TentativaDeLoginComSenhaIncorreta() {
