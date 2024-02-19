@@ -101,18 +101,33 @@ public class Testes extends Driver {
         assertTrue("O login demorou mais do que o esperado", durationInSeconds < 6);
     }
 
-    private static final String ImagemSelecionada = "https://www.saucedemo.com/static/media/sl-404.168b1cce.jpg";
-    private static final String ImagemApresentada = "https://www.saucedemo.com/static/media/sauce-backpack-1200x1500.0a0b85a3.jpg";
-
     @Test
-    public void t6_ValidarDiferencaEntreImagensDeProdutos() {
+    public void t6_ValidarUsuarioComError() {
+
+        escrever(Login.login, getError_User());
+        escrever(Login.senha, getSenha());
+        clicar(Login.button);
+        clicar(selecionarItem.adcCarrinho);
+        clicar(selecionarItem.carrinho);
+        clicar(selecionarItem.check);
+
+        escrever(DadosPessoais.nome, getNome());
+        escrever(DadosPessoais.sobrenome, getSobrenome());
+        escrever(DadosPessoais.cep, getCep());
+        clicar(DadosPessoais.Continue);
+        clicar(DadosPessoais.finish);
+
+
+    }
+    @Test
+    public void t7_ValidarDiferencaEntreImagensDeProdutos() {
 
         escrever(Login.login, getVisual_User());
         escrever(Login.senha, getSenha());
         clicar(Login.button);
 
-        String urlPrimeiraImagem = obterUrlDaImagem(ImagemSelecionada);
-        String urlSegundaImagem = obterUrlDaImagem(ImagemApresentada);
+        String urlPrimeiraImagem = obterUrlDaImagem(getImagemSelecionada());
+        String urlSegundaImagem = obterUrlDaImagem(getImagemApresentada());
         Assert.assertNotEquals(urlPrimeiraImagem, urlSegundaImagem);
         System.out.println("As URLs das imagens dos produtos não deveriam ser iguais.");
     }

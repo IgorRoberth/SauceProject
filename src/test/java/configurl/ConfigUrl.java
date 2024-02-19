@@ -3,7 +3,6 @@ package configurl;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,6 +27,8 @@ public class ConfigUrl {
             readOptionalProperty(workbook.getSheetAt(0), "performance_glitch_user", 4); // Leitura da propriedade opcional performanceglitch
             readOptionalProperty(workbook.getSheetAt(0), "error_user", 5); // Leitura da propriedade opcional erroruser
             readOptionalProperty(workbook.getSheetAt(0), "visual_user", 6); // Leitura da propriedade opcional visualuser
+            readOptionalProperty(workbook.getSheetAt(0), "ImagemSelecionada", 1, 5); // Leitura da propriedade opcional ImagemSelecionada
+            readOptionalProperty(workbook.getSheetAt(0), "ImagemApresentada", 2, 5); // Leitura da propriedade opcional ImagemApresentada
         } catch (IOException e) {
             throw new RuntimeException("Erro ao carregar o arquivo Excel", e);
         }
@@ -129,5 +130,13 @@ public class ConfigUrl {
     public static @NotNull String getVisual_User() {
 
         return getProperty("visual_user");
+    }
+
+    public static @NotNull String getImagemSelecionada() {
+        return getProperty("ImagemSelecionada");
+    }
+
+    public static @NotNull String getImagemApresentada() {
+        return getProperty("ImagemApresentada");
     }
 }
