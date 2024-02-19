@@ -3,6 +3,7 @@ package login;
 import browser.Navegadores;
 import driver.Driver;
 import elementos.*;
+import io.cucumber.java.eo.Se;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import static configurl.ConfigUrl.*;
@@ -31,11 +32,11 @@ public class Testes extends Driver {
         escrever(Login.senha, getSenha());
         clicar(Login.button);
 
-        clicar(selecionarItem.Item);
-        clicar(selecionarItem.adcCarrinho);
-        clicar(selecionarItem.carrinho);
-        validarItem(selecionarItem.Item, getMochila());
-        clicar(selecionarItem.check);
+        clicar(SelecionarItem.Item);
+        clicar(SelecionarItem.adcCarrinho);
+        clicar(SelecionarItem.carrinho);
+        validarItem(SelecionarItem.Item, getMochila());
+        clicar(SelecionarItem.check);
 
         escrever(DadosPessoais.nome, getNome());
         escrever(DadosPessoais.sobrenome, getSobrenome());
@@ -98,9 +99,9 @@ public class Testes extends Driver {
         escrever(Login.login, getErrorUser());
         escrever(Login.senha, getSenha());
         clicar(Login.button);
-        clicar(selecionarItem.adcCarrinho);
-        clicar(selecionarItem.carrinho);
-        clicar(selecionarItem.check);
+        clicar(SelecionarItem.adcCarrinho);
+        clicar(SelecionarItem.carrinho);
+        clicar(SelecionarItem.check);
 
         escrever(DadosPessoais.nome, getNome());
         escrever(DadosPessoais.sobrenome, getSobrenome());
