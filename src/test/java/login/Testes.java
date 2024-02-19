@@ -10,7 +10,7 @@ import static metodos.Metodos.*;
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class LoginConexao extends Driver {
+public class Testes extends Driver {
     @Before
     public void setup() {
         Navegadores navegadores = new Navegadores("Edge");
@@ -24,20 +24,22 @@ public class LoginConexao extends Driver {
         driver.quit();
     }
 
-    final static String produto = "Sauce Labs Backpack";
-    final static String msgFinal = "Thank you for your order!";
+    private final static String produto = "Sauce Labs Backpack";
+    private final static String msgFinal = "Thank you for your order!";
 
     @Test
     public void t1_CompraComSucesso() {
 
-        escrever(Elementos.login, getUser());
-        escrever(Elementos.senha, getSenha());
-        clicar(Elementos.button);
-        clicar(selecionarItem.validarItem);
+        escrever(Login.login, getUser());
+        escrever(Login.senha, getSenha());
+        clicar(Login.button);
+
+        clicar(selecionarItem.Item);
         clicar(selecionarItem.adcCarrinho);
         clicar(selecionarItem.carrinho);
-        validarItem(selecionarItem.validarItem, produto);
+        validarItem(selecionarItem.Item, produto);
         clicar(selecionarItem.check);
+
         escrever(DadosPessoais.nome, getNome());
         escrever(DadosPessoais.sobrenome, getSobrenome());
         escrever(DadosPessoais.cep, getCep());
@@ -47,40 +49,40 @@ public class LoginConexao extends Driver {
         System.out.println("\n===== Produto " + produto + " e mensagem " + msgFinal + " validadas com sucesso =====");
     }
 
-    final static String msgErro = "Epic sadface: Sorry, this user has been locked out.";
+    private final static String msgErro = "Epic sadface: Sorry, this user has been locked out.";
 
     @Test
     public void t2_UsuarioComBloqueio() {
 
-        escrever(Elementos.login, getUserBloq());
-        escrever(Elementos.senha, getSenha());
-        clicar(Elementos.button);
+        escrever(Login.login, getUserBloq());
+        escrever(Login.senha, getSenha());
+        clicar(Login.button);
         validarItem(UserBloq.validarErro, msgErro);
         System.out.println("======== Mensagem de erro validada com sucesso: " + msgErro + "=======");
     }
 
-    final static String userProblem = "Test.allTheThings() T-Shirt (Red) ";
+    private final static String userProblem = "Test.allTheThings() T-Shirt (Red) ";
 
     @Test
     public void t3_UsuarioComProblemaDeInterface() {
 
-        escrever(Elementos.login, getUserProblem());
-        escrever(Elementos.senha, getSenha());
-        clicar(Elementos.button);
+        escrever(Login.login, getUserProblem());
+        escrever(Login.senha, getSenha());
+        clicar(Login.button);
         clicar(UserProblem.sauceLabs);
         validarItem(UserProblem.produtoRetornado, userProblem);
         System.out.println("======== Produto esperado validado com sucesso: " + userProblem + "=======");
     }
 
-    final static String msgsenhaIncorreta = "Epic sadface: Username and password do not match any user in this service";
+    private final static String msgsenhaIncorreta = "Epic sadface: Username and password do not match any user in this service";
 
     @Test
     public void t4_TentativaDeLoginComSenhaIncorreta() {
 
-        escrever(Elementos.login, getUser());
-        escrever(Elementos.senha, getSenhaIncorreta());
-        clicar(Elementos.button);
-        validarItem(Elementos.msgSenhaIncorreta, msgsenhaIncorreta);
+        escrever(Login.login, getUser());
+        escrever(Login.senha, getSenhaIncorreta());
+        clicar(Login.button);
+        validarItem(Login.msgSenhaIncorreta, msgsenhaIncorreta);
         System.out.println("======== Mensagem de erro validada com sucesso: " + msgsenhaIncorreta + "========");
     }
 
@@ -88,9 +90,9 @@ public class LoginConexao extends Driver {
     public void t5_ValidacaoDePerformace() {
 
         long startTime = System.currentTimeMillis();
-        escrever(Elementos.login, getPerformanceGlitchUser());
-        escrever(Elementos.senha, getSenha());
-        clicar(Elementos.button);
+        escrever(Login.login, getPerformanceGlitchUser());
+        escrever(Login.senha, getSenha());
+        clicar(Login.button);
 
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
@@ -105,9 +107,9 @@ public class LoginConexao extends Driver {
     @Test
     public void t6_ValidarDiferencaEntreImagensDeProdutos() {
 
-        escrever(Elementos.login, getVisual_User());
-        escrever(Elementos.senha, getSenha());
-        clicar(Elementos.button);
+        escrever(Login.login, getVisual_User());
+        escrever(Login.senha, getSenha());
+        clicar(Login.button);
 
         String urlPrimeiraImagem = obterUrlDaImagem(ImagemSelecionada);
         String urlSegundaImagem = obterUrlDaImagem(ImagemApresentada);

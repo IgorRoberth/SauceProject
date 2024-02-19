@@ -3,6 +3,7 @@ package configurl;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,9 +25,9 @@ public class ConfigUrl {
             readOptionalProperty(workbook.getSheetAt(0), "UserBloq", 2); // Leitura da propriedade opcional UserBloq
             readOptionalProperty(workbook.getSheetAt(0), "UserProblem", 3); // Leitura da propriedade opcional UserProblem
             readOptionalProperty(workbook.getSheetAt(0), "senhaIncorreta", 2, 1); // Leitura da propriedade opcional senhaIncorreta
-            readOptionalProperty(workbook.getSheetAt(0), "performance_glitch_user", 4);
-            readOptionalProperty(workbook.getSheetAt(0), "error_user", 5);
-            readOptionalProperty(workbook.getSheetAt(0), "visual_user", 6);
+            readOptionalProperty(workbook.getSheetAt(0), "performance_glitch_user", 4); // Leitura da propriedade opcional performanceglitch
+            readOptionalProperty(workbook.getSheetAt(0), "error_user", 5); // Leitura da propriedade opcional erroruser
+            readOptionalProperty(workbook.getSheetAt(0), "visual_user", 6); // Leitura da propriedade opcional visualuser
         } catch (IOException e) {
             throw new RuntimeException("Erro ao carregar o arquivo Excel", e);
         }
@@ -70,7 +71,6 @@ public class ConfigUrl {
         return value;
     }
 
-    // Métodos de acesso para as propriedades
     public static @NotNull String getUrl() {
 
         return getProperty("Url");
@@ -120,11 +120,13 @@ public class ConfigUrl {
 
         return getProperty("senhaIncorreta");
     }
-    public static @NotNull String getError_User () {
+
+    public static @NotNull String getError_User() {
 
         return getProperty("error_user");
     }
-    public static @NotNull String getVisual_User () {
+
+    public static @NotNull String getVisual_User() {
 
         return getProperty("visual_user");
     }
