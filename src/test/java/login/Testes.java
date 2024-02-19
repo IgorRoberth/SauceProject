@@ -3,7 +3,6 @@ package login;
 import browser.Navegadores;
 import driver.Driver;
 import elementos.*;
-import io.cucumber.java.eo.Se;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import static configurl.ConfigUrl.*;
