@@ -24,9 +24,6 @@ public class Testes extends Driver {
         driver.quit();
     }
 
-    private final static String produto = "Sauce Labs Backpack";
-    private final static String msgFinal = "Thank you for your order!";
-
     @Test
     public void t1_CompraComSucesso() {
 
@@ -37,7 +34,7 @@ public class Testes extends Driver {
         clicar(selecionarItem.Item);
         clicar(selecionarItem.adcCarrinho);
         clicar(selecionarItem.carrinho);
-        validarItem(selecionarItem.Item, produto);
+        validarItem(selecionarItem.Item, getMochila());
         clicar(selecionarItem.check);
 
         escrever(DadosPessoais.nome, getNome());
@@ -45,11 +42,9 @@ public class Testes extends Driver {
         escrever(DadosPessoais.cep, getCep());
         clicar(DadosPessoais.Continue);
         clicar(DadosPessoais.finish);
-        validarItem(DadosPessoais.msgFinal, msgFinal);
-        System.out.println("\n===== Produto " + produto + " e mensagem " + msgFinal + " validadas com sucesso =====");
+        validarItem(DadosPessoais.msgFinal, getMsgFinal());
+        System.out.println("\n===== Produto " + getMochila() + " e mensagem " + getMsgFinal() + " validadas com sucesso =====");
     }
-
-    private final static String msgErro = "Epic sadface: Sorry, this user has been locked out. ";
 
     @Test
     public void t2_UsuarioComBloqueio() {
@@ -57,11 +52,9 @@ public class Testes extends Driver {
         escrever(Login.login, getUserBloq());
         escrever(Login.senha, getSenha());
         clicar(Login.button);
-        validarItem(UserBloq.validarErro, msgErro);
-        System.out.println("======== Mensagem de erro validada com sucesso: " + msgErro + "=======");
+        validarItem(UserBloq.validarErro, getMsgErro());
+        System.out.println("======== Mensagem de erro validada com sucesso: " + getMsgErro() + " =======");
     }
-
-    private final static String userProblem = "Test.allTheThings() T-Shirt (Red) ";
 
     @Test
     public void t3_UsuarioComProblemaDeInterface() {
@@ -70,11 +63,9 @@ public class Testes extends Driver {
         escrever(Login.senha, getSenha());
         clicar(Login.button);
         clicar(UserProblem.sauceLabs);
-        validarItem(UserProblem.produtoRetornado, userProblem);
-        System.out.println("======== Produto esperado validado com sucesso: " + userProblem + "=======");
+        validarItem(UserProblem.produtoRetornado, getProdProblem());
+        System.out.println("======== Produto esperado validado com sucesso: " + getProdProblem() + " =======");
     }
-
-    private final static String msgsenhaIncorreta = "Epic sadface: Username and password do not match any user in this service ";
 
     @Test
     public void t4_TentativaDeLoginComSenhaIncorreta() {
@@ -82,8 +73,8 @@ public class Testes extends Driver {
         escrever(Login.login, getUser());
         escrever(Login.senha, getSenhaIncorreta());
         clicar(Login.button);
-        validarItem(Login.msgSenhaIncorreta, msgsenhaIncorreta);
-        System.out.println("======== Mensagem de erro validada com sucesso: " + msgsenhaIncorreta + "========");
+        validarItem(Login.msgSenhaIncorreta, getMsgSenhaIncorreta());
+        System.out.println("======== Mensagem de erro validada com sucesso: " + getMsgSenhaIncorreta() + " ========");
     }
 
     @Test
@@ -104,7 +95,7 @@ public class Testes extends Driver {
     @Test
     public void t6_ValidarUsuarioComError() {
 
-        escrever(Login.login, getError_User());
+        escrever(Login.login, getErrorUser());
         escrever(Login.senha, getSenha());
         clicar(Login.button);
         clicar(selecionarItem.adcCarrinho);
@@ -117,24 +108,22 @@ public class Testes extends Driver {
         clicar(DadosPessoais.Continue);
         clicar(DadosPessoais.finish);
 
-
     }
+
     @Test
     public void t7_ValidarDiferencaEntreImagensDeProdutos() {
 
-        escrever(Login.login, getVisual_User());
+        escrever(Login.login, getVisualUser());
         escrever(Login.senha, getSenha());
         clicar(Login.button);
 
-        String urlPrimeiraImagem = obterUrlDaImagem(getImagemSelecionada());
-        String urlSegundaImagem = obterUrlDaImagem(getImagemApresentada());
-        Assert.assertNotEquals(urlPrimeiraImagem, urlSegundaImagem);
-        System.out.println("As URLs das imagens dos produtos não deveriam ser iguais.");
-    }
+        driver.get(getImagemSelecionada());
+        String urlPrimeiraImagem = driver.getCurrentUrl();
+        driver.get(getImagemApresentada());
+        String urlSegundaImagem = driver.getCurrentUrl();
 
-    private String obterUrlDaImagem(String urlImagem) {
-        driver.get(urlImagem);
-        return driver.getCurrentUrl();
-    }
+        // Verifica se as URLs são diferentes e falha o teste se forem iguais
+        Assert.assertNotEquals("As URLs das imagens dos produtos não deveriam ser iguais.", urlPrimeiraImagem, urlSegundaImagem);
 
+    }
 }
