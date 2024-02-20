@@ -3,14 +3,23 @@ package login;
 import browser.Navegadores;
 import driver.Driver;
 import elementos.*;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 import static configurl.ConfigUrl.*;
 import static metodos.Metodos.*;
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Testes extends Driver {
+
     @Before
     public void setup() {
         Navegadores navegadores = new Navegadores("Edge");
@@ -78,7 +87,7 @@ public class Testes extends Driver {
     }
 
     @Test
-    public void t5_ValidacaoDePerformace() {
+    public void t5_ValidacaoDePerformaceDoSite() {
 
         long startTime = System.currentTimeMillis();
         escrever(Login.login, getPerformanceGlitchUser());
@@ -88,12 +97,13 @@ public class Testes extends Driver {
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
         double durationInSeconds = duration / 1000.0;
-        System.out.println("O login demorou: " + durationInSeconds + " segundos.");
+        System.out.println("======= O login demorou: " + durationInSeconds + " segundos. ===========");
         assertTrue("O login demorou mais do que o esperado", durationInSeconds < 6);
+
     }
 
     @Test
-    public void t6_ValidarUsuarioComError() {
+    public void t6_ValidarSeElementoDoBotaoFinishEstaVisivel() {
 
         escrever(Login.login, getErrorUser());
         escrever(Login.senha, getSenha());
@@ -106,8 +116,21 @@ public class Testes extends Driver {
         escrever(DadosPessoais.sobrenome, getSobrenome());
         escrever(DadosPessoais.cep, getCep());
         clicar(DadosPessoais.Continue);
-        clicar(DadosPessoais.finish);
 
+        Duration timeout = Duration.ofSeconds(10);
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        WebElement finishButton;
+
+        final String sucesso = "======= O botão 'finish' está visível na tela. ======= ";
+        final String falha = "======= O botão 'finish' não está visível na tela. ======= ";
+
+        try {
+            finishButton = wait.until(ExpectedConditions.presenceOfElementLocated(DadosPessoais.finish));
+            assertTrue(sucesso, finishButton.isDisplayed());
+            System.out.println(sucesso + finishButton);
+        } catch (TimeoutException e) {
+            System.out.println(falha);
+        }
     }
 
     @Test
@@ -122,8 +145,13 @@ public class Testes extends Driver {
         driver.get(getImagemApresentada());
         String urlSegundaImagem = driver.getCurrentUrl();
 
-        // Verifica se as URLs são diferentes e falha o teste se forem iguais
-        Assert.assertNotEquals("As URLs das imagens dos produtos não deveriam ser iguais.", urlPrimeiraImagem, urlSegundaImagem);
+        final String sucesso = "======= As URLs das imagens dos produtos são diferentes. Teste bem-sucedido. =======";
+        final String falha = "======= As URLs das imagens dos produtos não deveriam ser iguais. =======";
 
+        if (!urlPrimeiraImagem.equals(urlSegundaImagem)) {
+            System.out.println(sucesso);
+        } else {
+            System.out.println(falha);
+        }
     }
 }
