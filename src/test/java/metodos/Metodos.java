@@ -1,19 +1,18 @@
 package metodos;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
-
 import driver.Driver;
 import org.apache.commons.io.FileUtils;
-
-import java.time.Duration;
-
 import org.jetbrains.annotations.NotNull;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+import static org.junit.Assert.assertTrue;
 
 public class Metodos extends Driver {
 
