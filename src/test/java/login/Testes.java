@@ -52,17 +52,19 @@ public class Testes extends Driver {
         clicar(DadosPessoais.Continue);
         clicar(DadosPessoais.finish);
         validarItem(DadosPessoais.msgFinal, getMsgFinal());
-        System.out.println("\n===== Produto " + getMochila() + " e mensagem " + getMsgFinal() + " validadas com sucesso =====");
+        final String msgFinal = "\n======= Produto " + getMochila() + " e mensagem " + getMsgFinal() + " validados com sucesso =======";
+        System.out.println(msgFinal);
     }
 
     @Test
     public void t2_UsuarioComBloqueio() {
 
+        final String msgErro = "======== Mensagem de erro validada com sucesso: " + getMsgErro() + " ========";
         escrever(Login.login, getUserBloq());
         escrever(Login.senha, getSenha());
         clicar(Login.button);
         validarItem(UserBloq.validarErro, getMsgErro());
-        System.out.println("======== Mensagem de erro validada com sucesso: " + getMsgErro() + " =======");
+        System.out.println(msgErro);
     }
 
     @Test
@@ -73,7 +75,8 @@ public class Testes extends Driver {
         clicar(Login.button);
         clicar(UserProblem.sauceLabs);
         validarItem(UserProblem.produtoRetornado, getProdProblem());
-        System.out.println("======== Produto esperado validado com sucesso: " + getProdProblem() + " =======");
+        final String produtoesperado = "======== Produto esperado validado com sucesso: " + getProdProblem() + " ========";
+        System.out.println(produtoesperado);
     }
 
     @Test
@@ -83,7 +86,8 @@ public class Testes extends Driver {
         escrever(Login.senha, getSenhaIncorreta());
         clicar(Login.button);
         validarItem(Login.msgSenhaIncorreta, getMsgSenhaIncorreta());
-        System.out.println("======== Mensagem de erro validada com sucesso: " + getMsgSenhaIncorreta() + " ========");
+        final String msgSucesso = "======== Mensagem de erro validada com sucesso: " + getMsgSenhaIncorreta() +  " ========";
+        System.out.println(msgSucesso);
     }
 
     @Test
@@ -97,8 +101,9 @@ public class Testes extends Driver {
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
         double durationInSeconds = duration / 1000.0;
-        System.out.println("======= O login demorou: " + durationInSeconds + " segundos. ===========");
-        assertTrue("O login demorou mais do que o esperado", durationInSeconds < 6);
+        final String msgDemora = "======= O login demorou: " + durationInSeconds + " segundos. ===========";
+        assertTrue(msgDemora, durationInSeconds < 6);
+        System.out.println(msgDemora);
 
     }
 
@@ -121,14 +126,13 @@ public class Testes extends Driver {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         WebElement finishButton;
 
-        final String sucesso = "======= O botão 'finish' está visível na tela. ======= ";
-        final String falha = "======= O botão 'finish' não está visível na tela. ======= ";
-
         try {
             finishButton = wait.until(ExpectedConditions.presenceOfElementLocated(DadosPessoais.finish));
+            final String sucesso = "======= O botão 'finish' está visível na tela. ======= " + finishButton;
             assertTrue(sucesso, finishButton.isDisplayed());
-            System.out.println(sucesso + finishButton);
+            System.out.println(sucesso);
         } catch (TimeoutException e) {
+            final String falha = "======= O botão 'finish' não está visível na tela. ======= ";
             System.out.println(falha);
         }
     }
@@ -145,8 +149,8 @@ public class Testes extends Driver {
         driver.get(getImagemApresentada());
         String urlSegundaImagem = driver.getCurrentUrl();
 
-        final String sucesso = "======= As URLs das imagens dos produtos são diferentes. Teste bem-sucedido. =======";
-        final String falha = "======= As URLs das imagens dos produtos não deveriam ser iguais. =======";
+        final String sucesso = "======= As URLs das imagens dos produtos são diferentes. ======= " + "Primeira Url: " + getImagemSelecionada() + " Segunda Url: " + getImagemApresentada();
+        final String falha = "======= As URLs das imagens dos produtos não deveriam ser iguais. ======= ";
 
         if (!urlPrimeiraImagem.equals(urlSegundaImagem)) {
             System.out.println(sucesso);
