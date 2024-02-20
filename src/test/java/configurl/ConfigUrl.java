@@ -46,19 +46,19 @@ public class ConfigUrl {
     }
 
     private static void readOptionalProperties(Sheet sheet) {
-        readOptionalProperty(sheet, "UserBloq",2);
-        readOptionalProperty(sheet, "UserProblem",3);
-        readOptionalProperty(sheet, "senhaIncorreta",2,1);
-        readOptionalProperty(sheet, "performance_glitch_user",4);
-        readOptionalProperty(sheet, "error_user",5);
-        readOptionalProperty(sheet, "visual_user",6);
-        readOptionalProperty(sheet, "ImagemSelecionada",2,5);
-        readOptionalProperty(sheet, "ImagemApresentada",3,5);
+        readOptionalProperty(sheet, "UserBloq", 2);
+        readOptionalProperty(sheet, "UserProblem", 3);
+        readOptionalProperty(sheet, "senhaIncorreta", 2, 1);
+        readOptionalProperty(sheet, "performance_glitch_user", 4);
+        readOptionalProperty(sheet, "error_user", 5);
+        readOptionalProperty(sheet, "visual_user", 6);
+        readOptionalProperty(sheet, "ImagemSelecionada", 2, 5);
+        readOptionalProperty(sheet, "ImagemApresentada", 3, 5);
         readOptionalProperty(sheet, "Mochila", 1, 6);
         readOptionalProperty(sheet, "T_Shirt", 2, 6);
-        readOptionalProperty(sheet, "MsgFinal", 1,7);
-        readOptionalProperty(sheet, "MsgErro", 2,7);
-        readOptionalProperty(sheet, "MsgSenhaIncorreta", 3,7);
+        readOptionalProperty(sheet, "MsgFinal", 1, 7);
+        readOptionalProperty(sheet, "MsgErro", 2, 7);
+        readOptionalProperty(sheet, "MsgSenhaIncorreta", 3, 7);
     }
 
     private static void readOptionalProperty(Sheet sheet, String key, int rowIndex) {
@@ -89,78 +89,97 @@ public class ConfigUrl {
     }
 
     public static @NotNull String getUrl() {
+
         return getProperty("Url");
     }
 
     public static @NotNull String getUser() {
+
         return getProperty("User");
     }
 
     public static @NotNull String getSenha() {
+
         return getProperty("Senha");
     }
 
     public static @NotNull String getSenhaIncorreta() {
+
         return getProperty("senhaIncorreta");
     }
 
     public static @NotNull String getNome() {
+
         return getProperty("Nome");
     }
 
     public static @NotNull String getSobrenome() {
+
         return getProperty("Sobrenome");
     }
 
     public static @NotNull String getCep() {
+
         return getProperty("Cep");
     }
 
     public static @NotNull String getMochila() {
+
         return getProperty("Mochila");
     }
 
     public static @NotNull String getMsgFinal() {
+
         return getProperty("MsgFinal");
     }
 
     public static @NotNull String getMsgErro() {
+
         return getProperty("MsgErro");
     }
 
-    public static @NotNull String getMsgSenhaIncorreta () {
+    public static @NotNull String getMsgSenhaIncorreta() {
+
         return getProperty("MsgSenhaIncorreta");
     }
 
     public static @NotNull String getUserBloq() {
+
         return getProperty("UserBloq");
     }
 
     public static @NotNull String getUserProblem() {
+
         return getProperty("UserProblem");
     }
 
-    public static @NotNull String getProdProblem () {
+    public static @NotNull String getProdProblem() {
+
         return getProperty("T_Shirt");
     }
 
     public static @NotNull String getPerformanceGlitchUser() {
+
         return getProperty("performance_glitch_user");
     }
 
     public static @NotNull String getErrorUser() {
+
         return getProperty("error_user");
     }
 
     public static @NotNull String getVisualUser() {
+
         return getProperty("visual_user");
     }
 
     public static @NotNull String getImagemSelecionada() {
+
         return getProperty("ImagemSelecionada");
     }
 
     public static @NotNull String getImagemApresentada() {
+
         return getProperty("ImagemApresentada");
     }
 }
