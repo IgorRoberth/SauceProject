@@ -3,6 +3,7 @@ package configurl;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,8 +11,8 @@ import java.util.Map;
 
 public class ConfigUrl {
     private static final Map<String, String> properties = new HashMap<>();
-    private static final String[] propertyKeys = {"User", "Senha", "Nome", "Sobrenome", "Cep", "Url", "Produtos", "Msg Final"};
     private static final String EXCEL_FILE_PATH = "C:\\Dev\\LoginInfo.xlsx";
+    private static final String[] urlKey = {"User", "Senha", "Nome", "Sobrenome", "Cep", "Url", "Produtos", "Msg Final"};
 
     static {
         try {
@@ -24,49 +25,49 @@ public class ConfigUrl {
     private static void loadPropertiesFromExcel() throws IOException {
         try (FileInputStream file = new FileInputStream(EXCEL_FILE_PATH);
              Workbook workbook = new XSSFWorkbook(file)) {
-            Sheet sheet = workbook.getSheetAt(0);
-            readProperties(sheet);
-            readOptionalProperties(sheet);
+            Sheet excel = workbook.getSheetAt(0);
+            readProperties(excel);
+            readOptionalProperties(excel);
         }
     }
 
-    private static void readProperties(@NotNull Sheet sheet) {
-        Row row = sheet.getRow(1);
+    private static void readProperties(@NotNull Sheet excel) {
+        Row row = excel.getRow(1);
         if (row == null) {
             throw new IllegalStateException("A linha especificada não existe no arquivo Excel");
         }
 
-        for (int columnIndex = 0; columnIndex < propertyKeys.length; columnIndex++) {
+        for (int columnIndex = 0; columnIndex < urlKey.length; columnIndex++) {
             Cell cell = row.getCell(columnIndex, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             String cellValue = getCellValue(cell);
             if (!cellValue.isEmpty()) {
-                properties.put(propertyKeys[columnIndex], cellValue);
+                properties.put(urlKey[columnIndex], cellValue);
             }
         }
     }
 
-    private static void readOptionalProperties(Sheet sheet) {
-        readOptionalProperty(sheet, "UserBloq", 2);
-        readOptionalProperty(sheet, "UserProblem", 3);
-        readOptionalProperty(sheet, "senhaIncorreta", 2, 1);
-        readOptionalProperty(sheet, "performance_glitch_user", 4);
-        readOptionalProperty(sheet, "error_user", 5);
-        readOptionalProperty(sheet, "visual_user", 6);
-        readOptionalProperty(sheet, "ImagemSelecionada", 2, 5);
-        readOptionalProperty(sheet, "ImagemApresentada", 3, 5);
-        readOptionalProperty(sheet, "Mochila", 1, 6);
-        readOptionalProperty(sheet, "T_Shirt", 2, 6);
-        readOptionalProperty(sheet, "MsgFinal", 1, 7);
-        readOptionalProperty(sheet, "MsgErro", 2, 7);
-        readOptionalProperty(sheet, "MsgSenhaIncorreta", 3, 7);
+    private static void readOptionalProperties(Sheet excel) {
+        readOptionalProperty(excel, "UserBloq", 2);
+        readOptionalProperty(excel, "UserProblem", 3);
+        readOptionalProperty(excel, "senhaIncorreta", 2, 1);
+        readOptionalProperty(excel, "error_user", 5);
+        readOptionalProperty(excel, "performance_glitch_user", 4);
+        readOptionalProperty(excel, "visual_user", 6);
+        readOptionalProperty(excel, "ImagemSelecionada", 2, 5);
+        readOptionalProperty(excel, "ImagemApresentada", 3, 5);
+        readOptionalProperty(excel, "Mochila", 1, 6);
+        readOptionalProperty(excel, "T_Shirt", 2, 6);
+        readOptionalProperty(excel, "MsgFinal", 1, 7);
+        readOptionalProperty(excel, "MsgErro", 2, 7);
+        readOptionalProperty(excel, "MsgSenhaIncorreta", 3, 7);
     }
 
-    private static void readOptionalProperty(Sheet sheet, String key, int rowIndex) {
-        readOptionalProperty(sheet, key, rowIndex, 0);
+    private static void readOptionalProperty(Sheet excel, String key, int rowIndex) {
+        readOptionalProperty(excel, key, rowIndex, 0);
     }
 
-    private static void readOptionalProperty(@NotNull Sheet sheet, String key, int rowIndex, int columnIndex) {
-        Row row = sheet.getRow(rowIndex);
+    private static void readOptionalProperty(@NotNull Sheet excel, String key, int rowIndex, int columnIndex) {
+        Row row = excel.getRow(rowIndex);
         if (row != null) {
             Cell cell = row.getCell(columnIndex, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
             String cellValue = getCellValue(cell);
@@ -78,6 +79,7 @@ public class ConfigUrl {
 
     private static @NotNull String getCellValue(Cell cell) {
         return cell == null ? "" : cell.toString().trim();
+
     }
 
     public static @NotNull String getProperty(String key) {
