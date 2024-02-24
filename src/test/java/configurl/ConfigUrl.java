@@ -47,16 +47,22 @@ public class ConfigUrl {
     }
 
     private static void readOptionalProperties(Sheet excel) {
+        //Coluna 0
         readOptionalProperty(excel, "UserBloq", 2);
         readOptionalProperty(excel, "UserProblem", 3);
-        readOptionalProperty(excel, "senhaIncorreta", 2, 1);
-        readOptionalProperty(excel, "error_user", 5);
         readOptionalProperty(excel, "performance_glitch_user", 4);
+        readOptionalProperty(excel, "error_user", 5);
         readOptionalProperty(excel, "visual_user", 6);
+        //Coluna 1
+        readOptionalProperty(excel, "senhaIncorreta", 2, 1);
+        //Coluna 2, 3 e 4 é buscada como prioridade para o teste
+        //Coluna 5
         readOptionalProperty(excel, "ImagemSelecionada", 2, 5);
         readOptionalProperty(excel, "ImagemApresentada", 3, 5);
+        //Coluna 6
         readOptionalProperty(excel, "Mochila", 1, 6);
         readOptionalProperty(excel, "T_Shirt", 2, 6);
+        //Coluna 7
         readOptionalProperty(excel, "MsgFinal", 1, 7);
         readOptionalProperty(excel, "MsgErro", 2, 7);
         readOptionalProperty(excel, "MsgSenhaIncorreta", 3, 7);
