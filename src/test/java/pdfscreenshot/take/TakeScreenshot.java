@@ -4,7 +4,6 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import driver.Driver;
 import org.apache.commons.io.FileUtils;
-import org.junit.AfterClass;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -57,7 +56,6 @@ public class TakeScreenshot extends Driver {
             document.close();
         }
 
-        @AfterClass
         public static void terminar() {
             try {
                 File diretorioEvidencias = new File("./");
