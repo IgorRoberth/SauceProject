@@ -191,23 +191,5 @@ public class Testes extends Driver {
         TakeScreenshot.screenShot("Conclusão", 7);
         TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT7", ".png", "./T7.pdf", "T7_Validar front do site com defeito.");
 
-        /*
-        driver.get(getImagemSelecionada());
-        String urlPrimeiraImagem = driver.getCurrentUrl();
-
-        TakeScreenshot.screenShot("Imagem Apresentada", 7);
-        clicar(Imagens.imagemAprsentada);
-        driver.get(getImagemApresentada());
-        String urlSegundaImagem = driver.getCurrentUrl();
-
-        final String sucesso = "======= As URLs das imagens dos produtos são diferentes. ======= " + "Primeira Url: " + getImagemSelecionada() + " Segunda Url: " + getImagemApresentada();
-        final String falha = "======= As URLs das imagens dos produtos não deveriam ser iguais. ======= ";
-
-        if (!urlPrimeiraImagem.equals(urlSegundaImagem)) {
-            System.out.println(sucesso);
-        } else {
-            System.out.println(falha);
-        }
-        */
     }
 }
