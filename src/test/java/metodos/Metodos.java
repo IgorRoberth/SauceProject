@@ -1,29 +1,16 @@
 package metodos;
 
 import driver.Driver;
-import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
+import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.io.File;
-import java.io.IOException;
+
 import java.time.Duration;
-import static org.junit.Assert.assertTrue;
 
 public class Metodos extends Driver {
-
-    public static void screenShot(String nome) throws IOException {
-
-        TakesScreenshot srcShot = ((TakesScreenshot) driver);
-        File srcFile = srcShot.getScreenshotAs(OutputType.FILE);
-        File desFile = new File("./Evidencias/" + nome + ".png");
-        FileUtils.copyFile(srcFile, desFile);
-
-    }
 
     public static void clicar(By elemento) {
         try {
@@ -45,6 +32,6 @@ public class Metodos extends Driver {
         WebDriverWait wait = new WebDriverWait(driver, timeout);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(elemento));
         String textoCapturado = element.getText();
-        assertTrue(textoEsperado.contains(textoCapturado));
+        Assert.assertTrue(textoEsperado.contains(textoCapturado));
     }
 }

@@ -1,21 +1,22 @@
 package login;
 
 import browser.Navegadores;
+import com.itextpdf.text.DocumentException;
 import driver.Driver;
 import elementos.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pdfscreenshot.take.TakeScreenshot;
+
+import java.io.IOException;
 import java.time.Duration;
+
 import static configurl.ConfigUrl.*;
 import static metodos.Metodos.*;
-import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class Testes extends Driver {
@@ -34,14 +35,16 @@ public class Testes extends Driver {
     }
 
     @Test
-    public void t1_CompraComSucesso() {
+    public void t1_CompraComSucesso() throws IOException, DocumentException {
 
         escrever(Login.login, getUser());
         escrever(Login.senha, getSenha());
+        TakeScreenshot.screenShot("Login", 1);
         clicar(Login.button);
 
         clicar(SelecionarItem.Item);
         clicar(SelecionarItem.adcCarrinho);
+        TakeScreenshot.screenShot("Mochila", 1);
         clicar(SelecionarItem.carrinho);
         validarItem(SelecionarItem.Item, getMochila());
         clicar(SelecionarItem.check);
@@ -51,75 +54,102 @@ public class Testes extends Driver {
         escrever(DadosPessoais.cep, getCep());
         clicar(DadosPessoais.Continue);
         clicar(DadosPessoais.finish);
+        TakeScreenshot.screenShot("MsgFinal", 1);
         validarItem(DadosPessoais.msgFinal, getMsgFinal());
         final String msgFinal = "\n======= Produto " + getMochila() + " e mensagem " + getMsgFinal() + " validados com sucesso =======";
         System.out.println(msgFinal);
+
+        // Correção na chamada do método gerarPDF
+        TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT1", ".png", "T1.pdf", "T1_Validação de compra com sucesso.");
     }
 
     @Test
-    public void t2_UsuarioComBloqueio() {
+    public void t2_UsuarioComBloqueio() throws IOException, DocumentException {
 
         final String msgErro = "======== Mensagem de erro validada com sucesso: " + getMsgErro() + " ========";
         escrever(Login.login, getUserBloq());
         escrever(Login.senha, getSenha());
         clicar(Login.button);
+        TakeScreenshot.screenShot("MsgErro", 2);
         validarItem(UserBloq.validarErro, getMsgErro());
         System.out.println(msgErro);
+        TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT2", ".png", "T2.pdf", "T2_Validar usuário com bloqueio.");
+
     }
 
     @Test
-    public void t3_UsuarioComProblemaDeInterface() {
+    public void t3_UsuarioComProblemaDeInterface() throws IOException, DocumentException {
+
+        String pastaEvidencias3 = "./EvidenciasT3";
 
         escrever(Login.login, getUserProblem());
         escrever(Login.senha, getSenha());
+        TakeScreenshot.screenShot("User Problem", 3);
         clicar(Login.button);
+        TakeScreenshot.screenShot("Produto Selecionado", 3);
         clicar(UserProblem.sauceLabs);
+        TakeScreenshot.screenShot("Produto Apresentado", 3);
         validarItem(UserProblem.produtoRetornado, getProdProblem());
         final String produtoesperado = "======== Produto esperado validado com sucesso: " + getProdProblem() + " ========";
         System.out.println(produtoesperado);
+
+        TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT3", ".png", "T3.pdf", "T3_Usuário com problema de interface.");
     }
 
     @Test
-    public void t4_TentativaDeLoginComSenhaIncorreta() {
+    public void t4_TentativaDeLoginComSenhaIncorreta() throws IOException, DocumentException {
 
+        String pastaEvidencias4 = "./EvidenciasT4";
         escrever(Login.login, getUser());
         escrever(Login.senha, getSenhaIncorreta());
         clicar(Login.button);
+        TakeScreenshot.screenShot("MsgSenhaIncorreta", 4);
         validarItem(Login.msgSenhaIncorreta, getMsgSenhaIncorreta());
-        final String msgSucesso = "======== Mensagem de erro validada com sucesso: " + getMsgSenhaIncorreta() +  " ========";
-        System.out.println(msgSucesso);
+        final String msgErro = "======== Mensagem de erro validada com sucesso: " + getMsgSenhaIncorreta() + " ========";
+        System.out.println(msgErro);
+
+        TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT4", ".png", "T4.pdf", "T4_Tentativa de login com senha incorreta");
+
     }
 
     @Test
-    public void t5_ValidacaoDePerformaceDoSite() {
+    public void t5_ValidacaoDePerformaceDoSite() throws IOException, DocumentException {
 
         long startTime = System.currentTimeMillis();
         escrever(Login.login, getPerformanceGlitchUser());
         escrever(Login.senha, getSenha());
+        TakeScreenshot.screenShot("Performance", 5);
         clicar(Login.button);
 
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
+        TakeScreenshot.screenShot("Tempo Performance", 4);
         double durationInSeconds = duration / 1000.0;
         final String msgDemora = "======= O login demorou: " + durationInSeconds + " segundos. ===========";
-        assertTrue(msgDemora, durationInSeconds < 6);
+        Assert.assertTrue(msgDemora, durationInSeconds < 6);
         System.out.println(msgDemora);
+
+        TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT5", ".png", "T5.pdf", "T5_Validacao de performace do site");
 
     }
 
     @Test
-    public void t6_ValidarSeElementoDoBotaoFinishEstaVisivel() {
+    public void t6_ValidarSeElementoDoBotaoFinishEstaVisivel() throws IOException, DocumentException {
 
         escrever(Login.login, getErrorUser());
         escrever(Login.senha, getSenha());
+        TakeScreenshot.screenShot("Login", 6);
         clicar(Login.button);
+        TakeScreenshot.screenShot("Adicionando", 6);
         clicar(SelecionarItem.adcCarrinho);
         clicar(SelecionarItem.carrinho);
+        TakeScreenshot.screenShot("Check", 6);
         clicar(SelecionarItem.check);
 
         escrever(DadosPessoais.nome, getNome());
         escrever(DadosPessoais.sobrenome, getSobrenome());
         escrever(DadosPessoais.cep, getCep());
+        TakeScreenshot.screenShot("Botão Continue", 6);
         clicar(DadosPessoais.Continue);
 
         Duration timeout = Duration.ofSeconds(10);
@@ -129,23 +159,46 @@ public class Testes extends Driver {
         try {
             finishButton = wait.until(ExpectedConditions.presenceOfElementLocated(DadosPessoais.finish));
             final String sucesso = "======= O botão 'finish' está visível na tela. ======= " + finishButton;
-            assertTrue(sucesso, finishButton.isDisplayed());
+            Assert.assertTrue(sucesso, finishButton.isDisplayed());
             System.out.println(sucesso);
         } catch (TimeoutException e) {
             final String falha = "======= O botão 'finish' não está visível na tela. ======= ";
             System.out.println(falha);
+        } finally {
+            // Sempre gera o PDF, independentemente do resultado do teste
+            TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT6", ".png", "./T6.pdf", "T6_Validar se elemento do botao finish está visível");
         }
     }
 
     @Test
-    public void t7_ValidarDiferencaEntreImagensDeProdutos() {
+    public void t7_ValidarFrontDoSiteComDefeito() throws IOException, DocumentException {
 
         escrever(Login.login, getVisualUser());
         escrever(Login.senha, getSenha());
+        TakeScreenshot.screenShot("Visual User", 7);
         clicar(Login.button);
 
+        clicar(VisualUser.produtoSelecionado);
+        TakeScreenshot.screenShot("Imagem Selecionada", 7);
+        clicar(VisualUser.carrinhoSele);
+        clicar(SelecionarItem.check);
+
+        TakeScreenshot.screenShot("TelaDados", 7);
+        escrever(DadosPessoais.nome, getNome());
+        escrever(DadosPessoais.sobrenome, getSobrenome());
+        escrever(DadosPessoais.cep, getCep());
+        clicar(DadosPessoais.Continue);
+        TakeScreenshot.screenShot("Dados Pessoais", 7);
+        clicar(DadosPessoais.finish);
+        TakeScreenshot.screenShot("Conclusão", 7);
+        TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT7", ".png", "./T7.pdf", "T7_Validar front do site com defeito.");
+
+        /*
         driver.get(getImagemSelecionada());
         String urlPrimeiraImagem = driver.getCurrentUrl();
+
+        TakeScreenshot.screenShot("Imagem Apresentada", 7);
+        clicar(Imagens.imagemAprsentada);
         driver.get(getImagemApresentada());
         String urlSegundaImagem = driver.getCurrentUrl();
 
@@ -157,5 +210,6 @@ public class Testes extends Driver {
         } else {
             System.out.println(falha);
         }
+        */
     }
 }
