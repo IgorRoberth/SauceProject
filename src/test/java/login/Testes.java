@@ -97,7 +97,6 @@ public class Testes extends Driver {
     @Test
     public void t4_TentativaDeLoginComSenhaIncorreta() throws IOException, DocumentException {
 
-        String pastaEvidencias4 = "./EvidenciasT4";
         escrever(Login.login, getUser());
         escrever(Login.senha, getSenhaIncorreta());
         clicar(Login.button);
