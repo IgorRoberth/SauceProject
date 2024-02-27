@@ -80,8 +80,6 @@ public class Testes extends Driver {
     @Test
     public void t3_UsuarioComProblemaDeInterface() throws IOException, DocumentException {
 
-        String pastaEvidencias3 = "./EvidenciasT3";
-
         escrever(Login.login, getUserProblem());
         escrever(Login.senha, getSenha());
         TakeScreenshot.screenShot("User Problem", 3);
