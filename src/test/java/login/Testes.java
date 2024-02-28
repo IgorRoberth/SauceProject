@@ -12,10 +12,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pdfscreenshot.take.TakeScreenshot;
-
 import java.io.IOException;
 import java.time.Duration;
-
 import static configurl.ConfigUrl.*;
 import static metodos.Metodos.*;
 
@@ -40,12 +38,12 @@ public class Testes extends Driver {
 
         escrever(Login.login, getUser());
         escrever(Login.senha, getSenha());
-        TakeScreenshot.screenShot("Login", 1);
+        TakeScreenshot.screenShot("Login1", 1);
         clicar(Login.button);
 
         clicar(SelecionarItem.Item);
         clicar(SelecionarItem.adcCarrinho);
-        TakeScreenshot.screenShot("Mochila", 1);
+        TakeScreenshot.screenShot("Login2", 1);
         clicar(SelecionarItem.carrinho);
         validarItem(SelecionarItem.Item, getMochila());
         clicar(SelecionarItem.check);
@@ -54,8 +52,9 @@ public class Testes extends Driver {
         escrever(DadosPessoais.sobrenome, getSobrenome());
         escrever(DadosPessoais.cep, getCep());
         clicar(DadosPessoais.Continue);
+        TakeScreenshot.screenShot("Login3", 1);
         clicar(DadosPessoais.finish);
-        TakeScreenshot.screenShot("MsgFinal", 1);
+        TakeScreenshot.screenShot("Login4", 1);
         validarItem(DadosPessoais.msgFinal, getMsgFinal());
         final String msgFinal = "\n======= Produto " + getMochila() + " e mensagem " + getMsgFinal() + " validados com sucesso =======";
         System.out.println(msgFinal);
@@ -82,11 +81,11 @@ public class Testes extends Driver {
 
         escrever(Login.login, getUserProblem());
         escrever(Login.senha, getSenha());
-        TakeScreenshot.screenShot("User Problem", 3);
+        TakeScreenshot.screenShot("Problem", 3);
         clicar(Login.button);
-        TakeScreenshot.screenShot("Produto Selecionado", 3);
+        TakeScreenshot.screenShot("Produto Escolhido", 3);
         clicar(UserProblem.sauceLabs);
-        TakeScreenshot.screenShot("Produto Apresentado", 3);
+        TakeScreenshot.screenShot("Produto Retornado", 3);
         validarItem(UserProblem.produtoRetornado, getProdProblem());
         final String produtoesperado = "======== Produto esperado validado com sucesso: " + getProdProblem() + " ========";
         System.out.println(produtoesperado);
@@ -99,6 +98,7 @@ public class Testes extends Driver {
 
         escrever(Login.login, getUser());
         escrever(Login.senha, getSenhaIncorreta());
+        TakeScreenshot.screenShot("Login", 4);
         clicar(Login.button);
         TakeScreenshot.screenShot("MsgSenhaIncorreta", 4);
         validarItem(Login.msgSenhaIncorreta, getMsgSenhaIncorreta());
@@ -115,9 +115,9 @@ public class Testes extends Driver {
         long startTime = System.currentTimeMillis();
         escrever(Login.login, getPerformanceGlitchUser());
         escrever(Login.senha, getSenha());
-        TakeScreenshot.screenShot("Performance", 5);
+        TakeScreenshot.screenShot("Logar", 5);
         clicar(Login.button);
-        TakeScreenshot.screenShot("Logado",5);
+        TakeScreenshot.screenShot("Performance",5);
 
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
@@ -137,21 +137,21 @@ public class Testes extends Driver {
 
         escrever(Login.login, getErrorUser());
         escrever(Login.senha, getSenha());
-        TakeScreenshot.screenShot("Login", 6);
+        TakeScreenshot.screenShot("Assert", 6);
         clicar(Login.button);
-        TakeScreenshot.screenShot("Adicionando", 6);
+        TakeScreenshot.screenShot("BotãoAdicionando", 6);
         clicar(SelecionarItem.adcCarrinho);
         clicar(SelecionarItem.carrinho);
-        TakeScreenshot.screenShot("Check", 6);
+        TakeScreenshot.screenShot("BotãoCheck", 6);
         clicar(SelecionarItem.check);
 
         escrever(DadosPessoais.nome, getNome());
         escrever(DadosPessoais.sobrenome, getSobrenome());
         escrever(DadosPessoais.cep, getCep());
-        TakeScreenshot.screenShot("Botão Continue", 6);
+        TakeScreenshot.screenShot("Dados", 6);
         clicar(DadosPessoais.Continue);
         Metodos.scroll(0, 400);
-        TakeScreenshot.screenShot("Botão finish",6);
+        TakeScreenshot.screenShot("Login finish",6);
 
         Duration timeout = Duration.ofSeconds(10);
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -177,22 +177,22 @@ public class Testes extends Driver {
 
         escrever(Login.login, getVisualUser());
         escrever(Login.senha, getSenha());
-        TakeScreenshot.screenShot("Visual User", 7);
+        TakeScreenshot.screenShot("button", 7);
         clicar(Login.button);
 
         clicar(VisualUser.produtoSelecionado);
-        TakeScreenshot.screenShot("Imagem Selecionada", 7);
+        TakeScreenshot.screenShot("carrinho", 7);
         clicar(VisualUser.carrinhoSele);
         clicar(SelecionarItem.check);
 
-        TakeScreenshot.screenShot("TelaDados", 7);
+        TakeScreenshot.screenShot("Front", 7);
         escrever(DadosPessoais.nome, getNome());
         escrever(DadosPessoais.sobrenome, getSobrenome());
         escrever(DadosPessoais.cep, getCep());
         clicar(DadosPessoais.Continue);
-        TakeScreenshot.screenShot("Dados Pessoais", 7);
+        TakeScreenshot.screenShot("VisualFinish", 7);
         clicar(DadosPessoais.finish);
-        TakeScreenshot.screenShot("Conclusão", 7);
+        TakeScreenshot.screenShot("VisualUser", 7);
         TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT7", ".png", "./T7.pdf", "T7_Validar front do site com defeito.");
 
     }
