@@ -8,3 +8,5 @@ public class SelecionarItem {
     public static By carrinho = By.cssSelector("#shopping_cart_container");
     public static By check = By.cssSelector("#checkout");
 }
+
+
