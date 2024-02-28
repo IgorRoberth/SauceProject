@@ -4,6 +4,7 @@ import browser.Navegadores;
 import com.itextpdf.text.DocumentException;
 import driver.Driver;
 import elementos.*;
+import metodos.Metodos;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.TimeoutException;
@@ -59,7 +60,6 @@ public class Testes extends Driver {
         final String msgFinal = "\n======= Produto " + getMochila() + " e mensagem " + getMsgFinal() + " validados com sucesso =======";
         System.out.println(msgFinal);
 
-        // Correção na chamada do método gerarPDF
         TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT1", ".png", "T1.pdf", "T1_Validação de compra com sucesso.");
     }
 
@@ -117,16 +117,18 @@ public class Testes extends Driver {
         escrever(Login.senha, getSenha());
         TakeScreenshot.screenShot("Performance", 5);
         clicar(Login.button);
+        TakeScreenshot.screenShot("Logado",5);
 
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
-        TakeScreenshot.screenShot("Tempo Performance", 4);
         double durationInSeconds = duration / 1000.0;
         final String msgDemora = "======= O login demorou: " + durationInSeconds + " segundos. ===========";
         Assert.assertTrue(msgDemora, durationInSeconds < 6);
         System.out.println(msgDemora);
 
-        TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT5", ".png", "T5.pdf", "T5_Validacao de performace do site");
+        String pdfcontent = "T5_Validacao de performace do site. ";
+        pdfcontent += "Tempo de login: " + durationInSeconds + " segundos\n";
+        TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT5", ".png", "T5.pdf", pdfcontent);
 
     }
 
@@ -148,6 +150,8 @@ public class Testes extends Driver {
         escrever(DadosPessoais.cep, getCep());
         TakeScreenshot.screenShot("Botão Continue", 6);
         clicar(DadosPessoais.Continue);
+        Metodos.scroll(0, 400);
+        TakeScreenshot.screenShot("Botão finish",6);
 
         Duration timeout = Duration.ofSeconds(10);
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -162,8 +166,9 @@ public class Testes extends Driver {
             final String falha = "======= O botão 'finish' não está visível na tela. ======= ";
             System.out.println(falha);
         } finally {
-            // Sempre gera o PDF, independentemente do resultado do teste
-            TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT6", ".png", "./T6.pdf", "T6_Validar se elemento do botao finish está visível");
+            String pdfcontent = "T6_Validar se elemento do botao finish está visível. - ";
+            pdfcontent += "Elemento validado: " + DadosPessoais.finish;
+            TakeScreenshot.GeradorPDF.gerarPDF("./EvidenciasT6", ".png", "./T6.pdf", pdfcontent);
         }
     }
 
