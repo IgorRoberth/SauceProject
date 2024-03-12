@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class ConfigUrl {
     private static final Map<String, String> properties = new HashMap<>();
-    private static final String EXCEL_FILE_PATH = "C:\\Dev\\LoginInfo.xlsx";
+    private static final String EXCEL_FILE_PATH = System.getenv("FILE_PATH");
     private static final String[] urlKey = {"User", "Senha", "Nome", "Sobrenome", "Cep", "Url", "Produtos", "Msg Final"};
 
     static {

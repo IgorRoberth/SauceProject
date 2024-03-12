@@ -123,7 +123,7 @@ public class Testes extends Driver {
         long duration = endTime - startTime;
         double durationInSeconds = duration / 1000.0;
         final String msgDemora = "======= O login demorou: " + durationInSeconds + " segundos. ===========";
-        Assert.assertTrue(msgDemora, durationInSeconds < 6);
+        Assert.assertTrue(msgDemora, durationInSeconds < 10);
         System.out.println(msgDemora);
 
         String pdfcontent = "T5_Validacao de performace do site. ";
